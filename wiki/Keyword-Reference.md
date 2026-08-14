@@ -1,64 +1,93 @@
-# Keyword Reference — 0.0.2
+# Keyword Reference
+
+This page lists keywords recognized by compiler version `0.0.2`.
 
 ## Variables
 
 | Keyword | Purpose |
 |---|---|
-| `мінливе` | declare a mutable variable |
-| `став` | initialize a declaration |
-| `стає` | reassign an existing variable |
+| `мінливе` | Begin mutable variable declaration |
+| `став` | Initialize a newly declared variable |
+| `стає` | Reassign an existing variable |
 
-## Blocks and control flow
+## Conditionals and loops
 
 | Keyword | Purpose |
 |---|---|
-| `зачин` | begin a block |
-| `край` | end a block |
-| `позаяк` | conditional branch |
-| `одначе` | alternative branch |
-| `допоки` | while loop |
-| `перебрати` | range loop |
-| `від` | range start separator |
-| `до` | range end separator |
-| `перервати` | break from a loop |
-| `далі` | continue a loop |
-| `розсуд` | multi-way branch |
-| `нагода` | switch case |
-| `решта` | default switch case |
+| `позаяк` | Begin conditional branch |
+| `одначе` | Begin alternative branch |
+| `допоки` | Begin while-style loop |
+| `перебрати` | Begin range loop |
+| `від` | Introduce range start |
+| `до` | Introduce range end |
+| `перервати` | Break from loop |
+| `далі` | Continue loop |
+
+## Switch-like branching
+
+| Keyword | Purpose |
+|---|---|
+| `розсуд` | Begin switch-like statement |
+| `нагода` | Introduce a case |
+| `решта` | Introduce default case |
 
 ## Functions
 
 | Keyword | Purpose |
 |---|---|
-| `чин` | function declaration |
-| `бере` | parameter list introducer |
-| `віддати` | return from a function |
-| `вжити` | invoke a function |
-| `з` | argument list introducer |
+| `чин` | Declare function |
+| `бере` | Introduce parameter list |
+| `віддати` | Return from function |
+| `вжити` | Begin function call |
+| `з` | Introduce call arguments |
 
-## Values and output
+## Blocks
 
 | Keyword | Purpose |
 |---|---|
-| `авжеж` | boolean true |
-| `ані` | boolean false |
-| `вивести` | print values |
+| `зачин` | Begin block |
+| `край` | End block |
 
-## Operators
+## Output
+
+| Keyword | Purpose |
+|---|---|
+| `вивести` | Print evaluated values |
+
+## Boolean literals
+
+| Keyword | Value |
+|---|---|
+| `авжеж` | true |
+| `ані` | false |
+
+## Arithmetic operators
+
+| Keyword | Equivalent |
+|---|---|
+| `додати` | `+` |
+| `відняти` | `-` |
+| `помножити` | `*` |
+| `поділити` | `/` |
+| `остача` | `%` |
+
+## Comparison operators
+
+| Keyword | Equivalent |
+|---|---|
+| `дорівнює` | `==` |
+| `недорівнює` | `!=` |
+| `перевищує` | `>` |
+| `менше` | `<` |
+| `щонайменше` | `>=` |
+| `щонайбільше` | `<=` |
+
+## Boolean operators
 
 | Keyword | Meaning |
 |---|---|
-| `додати` | addition |
-| `відняти` | subtraction |
-| `помножити` | multiplication |
-| `поділити` | division |
-| `остача` | remainder |
-| `дорівнює` | equality |
-| `недорівнює` | inequality |
-| `перевищує` | greater than |
-| `менше` | less than |
-| `щонайменше` | greater than or equal |
-| `щонайбільше` | less than or equal |
 | `і` | logical AND |
 | `або` | logical OR |
 | `не` | logical NOT |
+
+Recognized keywords cannot be used as ordinary identifiers.

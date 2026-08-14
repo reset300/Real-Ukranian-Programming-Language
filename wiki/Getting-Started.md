@@ -1,24 +1,68 @@
 # Getting Started
 
-This page targets compiler **0.0.2**.
+This page describes how to build compiler version `0.0.2` and run `.ukr` programs.
+
+## Requirements
+
+The compiler is written in Zig.
+
+The project currently targets a Zig `0.17` development build. Using a substantially older Zig release may require API changes.
 
 ## Build
+
+From the repository root:
 
 ```console
 zig build
 ```
 
-The project currently targets Zig `0.17.0-dev.1552+79dc16a0e`.
+On Windows, the executable is produced at:
 
-## Windows UTF-8
+```text
+zig-out\bin\compiler.exe
+```
 
-Classic Command Prompt may need:
+## UTF-8 in Windows Command Prompt
+
+`.ukr` source files are UTF-8.
+
+Classic `cmd.exe` may display Ukrainian output incorrectly unless its active code page is UTF-8.
+
+Run:
 
 ```console
 chcp 65001
 ```
 
+Then execute the compiler.
+
+## Check the compiler version
+
+```console
+compiler --version
+```
+
+Expected version:
+
+```text
+0.0.2
+```
+
+## Show command-line help
+
+```console
+compiler --help
+```
+
+## Run a source file
+
+```console
+compiler examples\basic.ukr
+```
+
 ## First program
+
+Create `hello.ukr`:
 
 ```text
 вивести("Привіт")
@@ -30,27 +74,46 @@ Run:
 compiler hello.ukr
 ```
 
-## Declaration versus reassignment
+Expected output:
 
-0.0.2 distinguishes these intentionally:
+```text
+Привіт
+```
+
+## Declare a variable
+
+Version `0.0.2` deliberately distinguishes declaration from reassignment.
+
+Declaration:
 
 ```text
 мінливе число став 10
+```
+
+Reassignment:
+
+```text
 число стає 20
 ```
 
-`став` creates the initial binding. `стає` changes an existing one.
+The one-letter difference is part of the language grammar.
 
-## Function
+## Function example
 
 ```text
-чин додати бере а, б
+чин додати бере ліве, праве
 зачин
-    віддати а додати б
+    віддати ліве додати праве
 край
 
-мінливе результат став вжити додати з 2, 3
-вивести(результат)
+мінливе сума став вжити додати з 20, 22
+вивести("сума:", сума)
+```
+
+Output:
+
+```text
+сума: 42
 ```
 
 ## Range loop
@@ -62,14 +125,28 @@ compiler hello.ukr
 край
 ```
 
-The upper bound is exclusive.
+## Switch-like branching
 
-## CLI
+```text
+мінливе стан став 2
 
-```console
-compiler --version
-compiler --help
-compiler --tokens program.ukr
+розсуд стан
+зачин
+    нагода 1
+    зачин
+        вивести("один")
+    край
+
+    нагода 2
+    зачин
+        вивести("два")
+    край
+
+    решта
+    зачин
+        вивести("невідомо")
+    край
+край
 ```
 
 Continue with [[Language Overview]].

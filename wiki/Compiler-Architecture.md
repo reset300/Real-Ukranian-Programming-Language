@@ -1,31 +1,119 @@
-# Compiler Architecture — 0.0.2
+# Compiler Architecture
 
-The current project is still an interpreter, but the front end is organized like a compiler.
+Compiler version `0.0.2` is an interpreter with a compiler-style front end.
+
+## Pipeline
 
 ```text
 .ukr source
-    ↓
-lexer.zig
-    ↓
-Token[]
-    ↓
-parser.zig
-    ↓
-ast.zig
-    ↓
-interpreter.zig
+    │
+    ▼
+Lexer
+    │
+    ▼
+Token stream
+    │
+    ▼
+Parser
+    │
+    ▼
+AST
+    │
+    ▼
+Interpreter
 ```
 
-## Files
+## Main modules
 
-| File | Responsibility |
-|---|---|
-| `main.zig` | CLI, source loading, diagnostics |
-| `lexer.zig` | UTF-8 tokenization and keyword recognition |
-| `parser.zig` | recursive-descent parsing |
-| `ast.zig` | statement/expression representation and cleanup |
-| `value.zig` | runtime values |
-| `interpreter.zig` | scopes, functions, control flow, expression evaluation |
-| `root.zig` | version and compiler tests |
+```text
+src/
+├── main.zig
+├── lexer.zig
+├── parser.zig
+├── ast.zig
+├── interpreter.zig
+├── value.zig
+└── root.zig
+```
 
-0.0.2 separates AST ownership from the parser so the parser no longer also owns recursive cleanup logic.
+## `main.zig`
+
+The command-line entry point:
+
+1. reads arguments;
+2. handles `--help`, `--version`, and token inspection;
+3. loads a source file;
+4. lexes it;
+5. parses the token stream;
+6. prints diagnostics on failure;
+7. executes the AST;
+8. releases all owned allocations.
+
+## `lexer.zig`
+
+The lexer converts UTF-8 source bytes into `Token` values and records source positions.
+
+See [[Lexer]].
+
+## `parser.zig`
+
+The parser is recursive descent.
+
+It parses statements, blocks, function declarations, calls, range loops, switch branches, and precedence-aware expressions.
+
+See [[Parser]].
+
+## `ast.zig`
+
+Version `0.0.2` moves AST definitions and recursive cleanup into a dedicated module.
+
+The AST contains expression and statement variants used by the interpreter.
+
+## `interpreter.zig`
+
+The interpreter evaluates expressions and executes statements.
+
+Version `0.0.2` adds:
+
+- function storage and calls;
+- local scopes;
+- returns;
+- loop break/continue propagation;
+- range loops;
+- switch-like branching.
+
+See [[Interpreter]].
+
+## `value.zig`
+
+Runtime values currently include:
+
+```text
+integer
+string
+boolean
+```
+
+## Memory ownership
+
+The source buffer remains alive while tokens and AST nodes reference slices from it.
+
+AST expression nodes and owned statement slices are recursively released after execution.
+
+The project previously exposed allocator leak reports during early `0.0.1` development; recursive AST cleanup was added before `0.0.2`.
+
+## Future architecture
+
+A later compiler may add:
+
+```text
+AST
+ ↓
+semantic analysis
+ ↓
+typed IR
+ ↓
+code generation
+```
+
+The existing lexer/parser separation is intended to make that possible without rewriting the complete front end.

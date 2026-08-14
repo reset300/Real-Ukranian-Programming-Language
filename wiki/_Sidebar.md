@@ -1,12 +1,14 @@
-# 0.0.2 Documentation
+# Documentation
 
-**Start**
+**Compiler 0.0.2**
+
+## Start
 
 - [[Home]]
 - [[Getting Started]]
 - [[Language Overview]]
 
-**Language Guide**
+## Language Guide
 
 - [[Lexical Structure]]
 - [[Variables and Values]]
@@ -15,13 +17,13 @@
 - [[Functions and Scopes]]
 - [[Output]]
 
-**Reference**
+## Reference
 
 - [[Grammar Reference]]
 - [[Keyword Reference]]
 - [[Error Reference]]
 
-**Compiler Internals**
+## Compiler Internals
 
 - [[Compiler Architecture]]
 - [[Lexer]]

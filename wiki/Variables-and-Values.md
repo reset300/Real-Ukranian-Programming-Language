@@ -1,32 +1,123 @@
 # Variables and Values
 
+Compiler version `0.0.2` distinguishes variable declaration from reassignment.
+
 ## Declaration
+
+A mutable variable is declared with:
+
+```text
+мінливе <name> став <expression>
+```
+
+Example:
 
 ```text
 мінливе число став 10
 ```
 
-`став` is mandatory for initialization in 0.0.2.
+The initializer expression is evaluated and stored in a newly created variable.
 
 ## Reassignment
 
+An existing variable is changed with:
+
 ```text
-число стає число додати 1
+<name> стає <expression>
 ```
 
-`стає` is mandatory for reassignment.
+Example:
 
-The compiler has dedicated diagnostics for mixing these two forms.
+```text
+число стає число додати 5
+```
 
-## Runtime values
+## `став` versus `стає`
 
-- signed 64-bit integer
-- string
-- boolean
-- internal empty value for functions that return no expression
+These are separate language tokens.
 
-## Scopes
+Correct:
 
-Blocks create nested local scopes. Functions create local parameter scopes.
+```text
+мінливе число став 10
+число стає 20
+```
 
-An inner declaration can shadow an outer variable. Assignment searches outward for the nearest existing binding.
+Incorrect declaration:
+
+```text
+мінливе число стає 10
+```
+
+This produces the parser error:
+
+```text
+DeclarationRequiresBecame
+```
+
+Incorrect reassignment:
+
+```text
+число став 20
+```
+
+This produces:
+
+```text
+BecameOnlyForDeclaration
+```
+
+The similarity between the two forms is intentional.
+
+## Duplicate declarations
+
+Declaring a name that already exists in the same scope produces:
+
+```text
+VariableAlreadyExists
+```
+
+## Unknown variables
+
+Reading or assigning an unknown name produces:
+
+```text
+UnknownVariable
+```
+
+## Runtime value kinds
+
+### Integer
+
+Integers are currently represented as signed 64-bit values.
+
+```text
+мінливе число став 42
+```
+
+### String
+
+```text
+мінливе назва став "Україна"
+```
+
+Strings currently reference text from the original source buffer.
+
+### Boolean
+
+The two boolean literals are:
+
+```text
+авжеж
+ані
+```
+
+They correspond to true and false.
+
+## Variable types
+
+The current language does not have explicit source-level type annotations.
+
+Type checks happen dynamically in the interpreter.
+
+A future release may add a static type system.

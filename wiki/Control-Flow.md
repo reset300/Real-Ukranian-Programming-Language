@@ -1,6 +1,28 @@
 # Control Flow
 
-## Conditional
+Compiler version `0.0.2` supports conditionals, while-style loops, range loops, loop control, and switch-like branching.
+
+## Conditional: `позаяк`
+
+```text
+позаяк <condition>
+зачин
+    <statements>
+край
+```
+
+Example:
+
+```text
+позаяк число перевищує 10
+зачин
+    вивести("велике")
+край
+```
+
+The condition must evaluate to a boolean.
+
+## Else-if: `одначе позаяк`
 
 ```text
 позаяк число перевищує 10
@@ -11,22 +33,47 @@
 зачин
     вивести("десять")
 край
+```
+
+Any number of `одначе позаяк` branches may be used.
+
+## Else: `одначе`
+
+```text
+позаяк готово
+зачин
+    вивести("так")
+край
 одначе
 зачин
-    вивести("мале")
+    вивести("ні")
 край
 ```
 
-## While loop
+## While-style loop: `допоки`
 
 ```text
-допоки число менше 10
+мінливе число став 0
+
+допоки число менше 5
 зачин
+    вивести(число)
     число стає число додати 1
 край
 ```
 
-## Range loop
+## Range loop: `перебрати`
+
+Syntax:
+
+```text
+перебрати <name> від <start-expression> до <end-expression>
+зачин
+    <statements>
+край
+```
+
+Example:
 
 ```text
 перебрати число від 0 до 10
@@ -35,20 +82,62 @@
 край
 ```
 
-Start is inclusive; end is exclusive. Only ascending integer ranges are implemented in 0.0.2.
+The loop introduces its iteration variable inside the loop scope.
 
-## Break and continue
+## Continue: `далі`
+
+`далі` skips the rest of the current loop iteration.
 
 ```text
-перервати
-далі
+перебрати число від 0 до 10
+зачин
+    позаяк число дорівнює 3
+    зачин
+        далі
+    край
+
+    вивести(число)
+край
 ```
 
-They operate on the nearest loop.
+## Break: `перервати`
 
-## Multi-way branch
+`перервати` exits the nearest active loop.
 
 ```text
+перебрати число від 0 до 10
+зачин
+    позаяк число дорівнює 8
+    зачин
+        перервати
+    край
+
+    вивести(число)
+край
+```
+
+## Switch-like branching: `розсуд`
+
+```text
+розсуд <expression>
+зачин
+    нагода <expression>
+    зачин
+        <statements>
+    край
+
+    решта
+    зачин
+        <statements>
+    край
+край
+```
+
+Example:
+
+```text
+мінливе стан став 2
+
 розсуд стан
 зачин
     нагода 0
@@ -61,11 +150,22 @@ They operate on the nearest loop.
         вивести("один")
     край
 
+    нагода 2
+    зачин
+        вивести("два")
+    край
+
     решта
     зачин
-        вивести("інше")
+        вивести("невідомо")
     край
 край
 ```
 
-There is no fallthrough.
+Only one `решта` branch is permitted.
+
+## Condition values
+
+The interpreter does not use generic truthiness.
+
+Conditions must evaluate to booleans. An integer or string used directly as a condition produces `ExpectedBoolean`.

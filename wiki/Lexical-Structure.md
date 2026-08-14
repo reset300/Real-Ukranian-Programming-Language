@@ -1,36 +1,78 @@
 # Lexical Structure
 
+This page describes source tokenization in compiler version `0.0.2`.
+
+## Encoding
+
 Source files are UTF-8.
 
-## Newlines
+## Whitespace
 
-Ordinary statements end at newlines. Semicolons are not part of the language.
+Spaces, tabs, and carriage returns separate tokens.
+
+Newlines are significant and normally terminate statements.
+
+Blank lines are permitted.
 
 ## Comments
 
+A line comment starts with `//`.
+
 ```text
 // comment
+мінливе число став 10
+```
+
+## Integers
+
+Decimal integer literals are sequences of ASCII digits:
+
+```text
+0
+10
+1250
 ```
 
 ## Strings
+
+Strings use ASCII double quotes:
 
 ```text
 "Привіт"
 "https://example.com"
 ```
 
-Latin letters are allowed inside strings but rejected elsewhere by the current lexer.
+Latin characters are allowed inside strings.
+
+Escape sequences are not yet implemented.
 
 ## Identifiers
 
+Identifiers are source words that are not recognized keywords.
+
+Examples:
+
 ```text
-мінливе кількість став 10
+число
+лічильник
+сума
+готово
 ```
 
-ASCII Latin identifiers such as `count` are rejected.
+ASCII Latin letters are rejected outside strings.
 
 ## Punctuation
 
-The current punctuation vocabulary is deliberately small: `(`, `)`, and `,`.
+The language currently recognizes:
 
-Most operations are represented by words. See [[Keyword Reference]].
+| Character | Purpose |
+|---|---|
+| `(` | grouped expression or argument list |
+| `)` | close grouped expression or argument list |
+| `,` | separate arguments or parameters |
+
+There are no braces or semicolons.
+
+## Keywords
+
+See [[Keyword Reference]] for the complete `0.0.2` list.

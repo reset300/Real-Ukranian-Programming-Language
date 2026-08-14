@@ -1,6 +1,28 @@
 # Output
 
-`вивести(...)` prints evaluated expressions separated by spaces and then writes a newline.
+`вивести` prints one or more evaluated expressions.
+
+## Syntax
+
+```text
+вивести(<arguments>)
+```
+
+Arguments are comma-separated expressions.
+
+## One value
+
+```text
+вивести("Привіт")
+```
+
+Output:
+
+```text
+Привіт
+```
+
+## Multiple values
 
 ```text
 мінливе число став 10
@@ -13,4 +35,20 @@ Output:
 число: 10
 ```
 
-`вивести()` prints an empty line.
+The interpreter inserts one space between arguments and a newline after the call.
+
+## Function calls as output arguments
+
+Because calls are expressions, this is valid:
+
+```text
+вивести("сума:", вжити додати з 20, 22)
+```
+
+## Supported runtime values
+
+Current printable values:
+
+- integers
+- strings
+- booleans
