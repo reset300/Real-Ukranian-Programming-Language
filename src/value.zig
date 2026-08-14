@@ -4,12 +4,14 @@ pub const Value = union(enum) {
     integer: i64,
     string: []const u8,
     boolean: bool,
+    nothing: void,
 
-    pub fn print(self: Value) void {
+    pub fn writeInline(self: Value) void {
         switch (self) {
-            .integer => |v| std.debug.print("{}\\n", .{v}),
-            .string => |v| std.debug.print("{s}\\n", .{v}),
-            .boolean => |v| std.debug.print("{s}\\n", .{if (v) "авжеж" else "ані"}),
+            .integer => |value| std.debug.print("{}", .{value}),
+            .string => |value| std.debug.print("{s}", .{value}),
+            .boolean => |value| std.debug.print("{s}", .{if (value) "авжеж" else "ані"}),
+            .nothing => std.debug.print("порожньо", .{}),
         }
     }
 };
